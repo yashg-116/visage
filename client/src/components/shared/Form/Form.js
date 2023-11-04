@@ -6,7 +6,7 @@ import { handleLogin, handleRegister } from "../../../services/authService";
 const Form = ({ formType, submitBtn, formTitle }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState(""); // changed here
+    const [role, setRole] = useState("user"); // changed here
     const [name, setName] = useState("");
     const [organizationName, setOrganizationName] = useState("");
     const [website, setWebsite] = useState("");

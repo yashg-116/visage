@@ -6,85 +6,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
-import Donar from "./pages/Dashboard/Donar";
-import Hospitals from "./pages/Dashboard/Hospitals";
-import Consumer from "./pages/Dashboard/Consumer";
-import Donation from "./pages/Dashboard/Donation";
-import AdminHome from "./pages/Homepages/AdminHome";
-import DonarHome from "./pages/Homepages/DonarHome";
-import HospitalHome from "./pages/Homepages/HospitalHome";
-import Analytics from "./pages/Dashboard/Analytics";
-
 
 function App() {
   return (
     <div >
       <ToastContainer />
       <Routes>
-        <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute>
-              <Analytics />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/hospitalhome"
-          element={
-            <ProtectedRoute>
-              <HospitalHome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/donarhome"
-          element={
-            <ProtectedRoute>
-              <DonarHome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminHome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/donation"
-          element={
-            <ProtectedRoute>
-              <Donation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/consumer"
-          element={
-            <ProtectedRoute>
-              <Consumer />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/hospital"
-          element={
-            <ProtectedRoute>
-              <Hospitals />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/donar"
-          element={
-            <ProtectedRoute>
-              <Donar />
-            </ProtectedRoute>
-          }
-        />
         <Route path="/" element={
           <ProtectedRoute>
             <HomePage />

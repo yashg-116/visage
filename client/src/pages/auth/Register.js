@@ -12,9 +12,9 @@ const Register = () => {
         <Spinner />
       ) : (
         <div class="root" style={{ overflow: "hidden" }}>
-          <div className="row g-0" style={{ backgroundColor: "#2e2e2e", color: "white" }}>
+          <div className="row g-0" style={{ backgroundColor: "#A5D9E9", color: "black" }}>
             <div className="col-md-8 register-banner">
-              <img src="./assets/images/banner2.jpeg" alt="registerImage" />
+              <img src="./assets/images/banner2.png" alt="registerImage" />
             </div>
             <div className="col-md-4 form-container" style={{ paddingLeft: "0px", paddingRight: "135px" }}>
               <Form

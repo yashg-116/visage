@@ -1,7 +1,7 @@
 {
-  "name": "vardaan",
+  "name": "visage",
   "version": "1.0.0",
-  "description": "A blood bank management system",
+  "description": "Autonomous verification service",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm i"
   },
-  "author": "nitya",
+  "author": "visage_team",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

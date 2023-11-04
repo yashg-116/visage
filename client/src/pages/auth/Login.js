@@ -11,9 +11,9 @@ const Login = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="row" style={{ backgroundColor: "#2e2e2e", color: "white" }}>
+        <div className="row" style={{ backgroundColor: "#A5D9E9", color: "black" }}>
           <div className="col-md-8 login-banner">
-            <img src="./assets/images/banner1.jpeg" alt="loginImage" />
+            <img src="./assets/images/banner1.png" alt="loginImage" />
 
           </div>
           <div className="col-md-4 form-container" style={{ paddingLeft: "0px", paddingRight: "135px" }}>
