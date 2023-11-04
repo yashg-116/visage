@@ -2,22 +2,23 @@ import React, { useState, useEffect, URL, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import { database } from "./firebase";
 import { getDatabase, ref, push } from "firebase/database";
-// import { initializeApp } from 'firebase/app'
-// import { getStorage } from 'firebase/storage';
-// import { uploadBytes } from 'firebase/storage';
+import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { ref as sref } from "firebase/storage";
+import { uploadBytes } from "firebase/storage";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCOuK2C_ae170J6QF442fmCmIEQn5nR9Tc",
-//   authDomain: "paperless-boarding-system.firebaseapp.com",
-//   databaseURL: "https://paperless-boarding-system-default-rtdb.firebaseio.com",
-//   projectId: "paperless-boarding-system",
-//   storageBucket: "paperless-boarding-system.appspot.com",
-//   messagingSenderId: "443459688884",
-//   appId: "1:443459688884:web:d530519c352c089349bae1",
-//   measurementId: "G-HBM7LM9MYK"
-// };
-// const app = initializeApp(firebaseConfig);
-// const storage = getStorage(app);
+const firebaseConfig = {
+  apiKey: "AIzaSyCOuK2C_ae170J6QF442fmCmIEQn5nR9Tc",
+  authDomain: "paperless-boarding-system.firebaseapp.com",
+  databaseURL: "https://paperless-boarding-system-default-rtdb.firebaseio.com",
+  projectId: "paperless-boarding-system",
+  storageBucket: "paperless-boarding-system.appspot.com",
+  messagingSenderId: "443459688884",
+  appId: "1:443459688884:web:d530519c352c089349bae1",
+  measurementId: "G-HBM7LM9MYK",
+};
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 function generateUniqueNumericId() {
   // Get the current timestamp in milliseconds
   const timestamp = new Date().getTime();
@@ -69,36 +70,43 @@ const ContactForm = () => {
   const retake = () => {
     setImgSrc(null);
   };
-  // const handleUpload = () => {
-  //   const storageRef = initializeApp(storage().ref());
-  //   const fileRef = storageRef.child(imgSrc.name);
 
-  //   fileRef.put(imgSrc).then((snapshot) => {
-  //     console.log("Uploaded a file:", snapshot.ref.fullPath);
-  //   });
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!imgSrc) {
-    //   alert('Please select an image to upload.');
-    //   return;
-    // }
+    if (!imgSrc) {
+      alert("Please select an image to upload.");
+      return;
+    }
 
-    // const storageRef = ref(storage, 'images/' + imgSrc.name);
-
-    // try {
-    //   uploadBytes(storageRef, imgSrc);
-    //   alert('Image uploaded successfully!');
-    // } catch (error) {
-    //   console.error('Error uploading image:', error);
-    // }
-    // Handle form submission here, e.g., send data to a server or perform validation.
+    // Convert the base64 image to a Blob
+    const base64Image = imgSrc.split(",")[1]; // Remove the data:image/jpeg;base64, part
+    const byteArray = atob(base64Image);
+    const array = [];
+    for (let i = 0; i < byteArray.length; i++) {
+      array.push(byteArray.charCodeAt(i));
+    }
+    const blob = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
     const uniqueId = generateUniqueNumericId();
+    const storageRef = sref(storage, "userImage/" + uniqueId + ".jpg");
+
+    try {
+      uploadBytes(storageRef, blob, { contentType: "image/jpeg" }).then(
+        (snapshot) => {
+          console.log("Uploaded a file:", snapshot.ref.fullPath);
+          alert("Image uploaded successfully!");
+        }
+      );
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+    // Handle form submission here, e.g., send data to a server or perform validation.
     // console.log(`Unique Numeric ID: ${uniqueId}`);
-    push(ref(database, "UserDetails"), UserDetails)
+    const userDetailsRef = ref(database, "UserDetails");
+
+    // Use the push method to generate a unique ID and set the data in one step
+    push(userDetailsRef, { ...UserDetails, uniqueId })
       .then(() => {
         // Form submission was successful
-
         setSuccessMessage("Form submitted successfully!");
         setFormSubmitted(true);
       })
